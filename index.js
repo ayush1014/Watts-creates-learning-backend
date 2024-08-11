@@ -8,7 +8,8 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(cors({
-    origin: 'https://wattscreates.com', 
+    // origin: 'https://wattscreates.com', 
+    origin: 'http://localhost:3000', 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"]
@@ -23,9 +24,9 @@ app.post('/send-email', async (req, res) => {
 
     const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
-        secure: true,
+        secure: false,
         secureConnection: false,
-        port: 465, 
+        port: 587, 
         tls: {
             ciphers:'SSLv3'
         },
