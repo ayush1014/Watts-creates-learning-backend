@@ -51,8 +51,13 @@ app.post('/send-email', async (req, res) => {
     };
 
     transporter.sendMail(mailOptions).catch(error => {
-        console.error('Failed to send email:', error);
-        res.status(500).send({ msg: 'Failed to send email', error: error.message });
+        if (error) {
+            console.error('Failed to send email:', error);
+            return res.status(500).send({ msg: 'Failed to send email', error: error.message });
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.status(200).send({ msg: 'Email sent successfully', info: info.response });
+        }
     });
 
     const detailSend = {
